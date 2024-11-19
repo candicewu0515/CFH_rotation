@@ -3,6 +3,7 @@ title: "Candice_pvalue"
 output:
   html_document:
     df_print: paged
+  pdf_document: default
 ---
 
 
@@ -96,6 +97,8 @@ ggsave(
 ```{r}
 ## P-value calculation
 # Create total data by averaging OS and OD values for each DonorID, Genotype, and MeasureType
+reshaped_data <- data %>%
+  gather(key = "MeasureType", value = "Thickness", -DonorID, -Genotype, -Eye)
 total_data <- reshaped_data %>%
   filter(Eye %in% c("os", "od")) %>%  # Select OS and OD data
   group_by(DonorID, Genotype, MeasureType) %>%  # Group by DonorID, Genotype, and MeasureType
